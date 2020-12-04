@@ -66,10 +66,10 @@ async function expandBookData(listItem) {
 }
 
 async function expandBookDataMultiple(listItems) {
-  const books = await booksDB.readManyById(listItems.map(li => li.bookId))
-  return listItems.map(listItem => ({
+  const books = await booksDB.readManyById(listItems.map((li) => li.bookId))
+  return listItems.map((listItem) => ({
     ...listItem,
-    book: books.find(book => book.id === listItem.bookId),
+    book: books.find((book) => book.id === listItem.bookId),
   }))
 }
 

@@ -1,10 +1,33 @@
 // Testing Pure Functions
 
-// 💣 remove this todo test (it's only here so you don't get an error about missing tests)
-test.todo('remove me')
-
 // 🐨 import the function that we're testing
-// 💰 import {isPasswordAllowed} from '../auth'
+import cases from 'jest-in-case'
+import {isPasswordAllowed} from '../auth'
+
+cases(
+  'valid passwords',
+  ({password}) => {
+    expect(isPasswordAllowed(password)).toBe(true)
+  },
+  {
+    valid: {password: '!aBc123'},
+  },
+)
+
+cases(
+  'invalid passwords',
+  ({password}) => {
+    expect(isPasswordAllowed(password)).toBe(false)
+  },
+  Object.entries({
+    'too short': 'a2cDe!',
+    'missing non-alphanumeric': 'abcD123',
+    'missing letters': '123456!',
+    'missing digit': 'abcdEF!',
+    'missing uppercase': 'abcdef!',
+    'missing lowercase': 'ABCDEF!',
+  }).map(([name, password]) => ({name: `${name} - ${password}`, password})),
+)
 
 // 🐨 write tests for valid and invalid passwords
 // 💰 here are some you can use:
